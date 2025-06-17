@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+                background: linear-gradient(135deg, #2d2d2d 0%, #444444 100%);
+                color: #e5e7eb;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            h1 {
+                color: #ffffff;
+                margin-top: 40px;
+                margin-bottom: 32px;
+                font-size: 2.8rem;
+                letter-spacing: 0px;
+                font-weight: 800;
+                text-shadow: 0 4px 24px rgba(39, 39, 39, 0.25), 0 1px 0 #6b7280;
+                background: linear-gradient(90deg, #444444 0%, #161616 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .game {
+                border: 2px solid #6b7280;
+                display: inline-block;
+                margin: 10px auto;
+                padding: 10px 30px;
+                cursor: pointer;
+                transition: 
+                    transform 0.2s cubic-bezier(.4,2,.6,1), 
+                    box-shadow 0.2s cubic-bezier(.4,2,.6,1), 
+                    background 0.2s, 
+                    color 0.2s, 
+                    border-color 0.2s;
+                background: linear-gradient(90deg, #374151 0%, #6b7280 100%);
+                box-shadow: 0 2px 8px rgba(31, 41, 55, 0.08);
+                color: #e5e7eb;
+                border-radius: 12px;
+            }
+
+            .game:hover {
+                transform: scale(1.08) rotate(-2deg);
+                box-shadow: 0 8px 24px rgba(31, 41, 55, 0.18);
+                background: linear-gradient(90deg, #6b7280 0%, #374151 100%);
+                border-color: #f3f4f6;
+                color: #fff;
+            }
+
+            #games {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+        <title>Something Important</title>
+    </head>
+    <body>
+        <h1 class="title">Welcome to Something Important</h1>
+        <div id="games"></div>
+    </body>
+    <script>
+        function rendergames(games) {
+            const gamesDiv = document.getElementById('games');
+            gamesDiv.innerHTML = '';
+            for (const game of games) {
+                const gameDiv = document.createElement('div');
+                gameDiv.innerHTML = `<h2 class="game" onclick="opengame('${game}')">${game}</h2>`;
+                gamesDiv.appendChild(gameDiv);
+            }
+        }
+
+        function opengame(game) {
+            gamelink = game + ".html"
+            window.location.href = "games/" + gamelink
+        }
+        
+        const games = ["tictactoe"]
+        rendergames(games)
+    </script>
+</html>

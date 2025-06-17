@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe vs AI</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; }
+    table { margin: 20px auto; border-collapse: collapse; }
+    td {
+      width: 60px; height: 60px;
+      border: 2px solid #333;
+      font-size: 40px;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    #status { margin-top: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>Tic Tac Toe vs AI</h1>
+  <table id="board"></table>
+  <div id="status">Your move (X)</div>
+
+  <script>
+    const board = document.getElementById("board");
+    const status = document.getElementById("status");
+    let cells = Array(9).fill("");
+    let gameOver = false;
+
+    function renderBoard() {
+      board.innerHTML = "";
+      for (let i = 0; i < 3; i++) {
+        const row = board.insertRow();
+        for (let j = 0; j < 3; j++) {
+          const cell = row.insertCell();
+          const idx = i * 3 + j;
+          cell.textContent = cells[idx];
+          cell.onclick = () => playerMove(idx);
+        }
+      }
+    }
+
+    function checkWinner(p) {
+      const winPatterns = [
+        [0,1,2], [3,4,5], [6,7,8], // rows
+        [0,3,6], [1,4,7], [2,5,8], // cols
+        [0,4,8], [2,4,6]           // diagonals
+      ];
+      return winPatterns.some(pat => pat.every(i => cells[i] === p));
+    }
+
+    function playerMove(i) {
+      if (cells[i] || gameOver) return;
+      cells[i] = "X";
+      renderBoard();
+      if (checkWinner("X")) return end("You win!");
+      if (cells.every(c => c)) return end("It's a draw.");
+      setTimeout(aiMove, 300);
+    }
+
+    function aiMove() {
+      let empty = cells.map((v, i) => v === "" ? i : null).filter(i => i !== null);
+      let move = empty[Math.floor(Math.random() * empty.length)];
+      cells[move] = "O";
+      renderBoard();
+      if (checkWinner("O")) return end("AI wins!");
+      if (cells.every(c => c)) return end("It's a draw.");
+    }
+
+    function end(msg) {
+      status.textContent = msg;
+      gameOver = true;
+    }
+
+    renderBoard();
+  </script>
+</body>
+</html>
