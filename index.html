@@ -65,7 +65,7 @@
         <div id="games"></div>
     </body>
     <script>
-        function rendergames(games) {
+        function render(games, links) {
             const gamesDiv = document.getElementById('games');
             gamesDiv.innerHTML = '';
             for (const game of games) {
@@ -73,14 +73,27 @@
                 gameDiv.innerHTML = `<h2 class="game" onclick="opengame('${game}')">${game}</h2>`;
                 gamesDiv.appendChild(gameDiv);
             }
+            for (const link of links) {
+                const linkDiv = document.createElement('div');
+                var linkname = link.replace('https://www.', '')
+                linkname = linkname.replace('.co.uk', '')
+                linkname = linkname.replace('.com', '')
+                linkDiv.innerHTML = `<h2 class="game" onclick="openlink('${link}')">${linkname}</h2>`
+                gamesDiv.appendChild(linkDiv)
+            }
         }
 
         function opengame(game) {
             gamelink = game + ".html"
             window.location.href = "games/" + gamelink
         }
+
+        function openlink(link) {
+            window.location.href = link
+        }
         
         const games = ["tictactoe"]
-        rendergames(games)
+        const links = ["https://www.worldguessr.com"]
+        render(games, links)
     </script>
 </html>
