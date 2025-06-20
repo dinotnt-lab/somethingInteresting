@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload</title>
+    </head>
+    <body>
+    <h1>Upload - Admin Panel</h1>
+    <p>If you are not an admin or uploader, please leave</p>
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Upload HTML file:</label><br>
+        <input type="file" name="file" accept=".html" required>
+        <button type="submit" name="submit_type" value="html">Upload HTML</button>
+    </form>
+    <hr>
+    <form action="/upload_link" method="post">
+        <label>Add link(s) (one per line):</label><br>
+        <textarea name="links" rows="4" cols="40" placeholder="https://example.com" required></textarea><br>
+        <button type="submit">Add Link(s)</button>
+    </form>
+</body>
+</html>
